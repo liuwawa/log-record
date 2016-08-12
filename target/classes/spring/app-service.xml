@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- 代理类 -->
+	<bean id="edgeServiceInterceptor" class="org.learn.aop.edge.serviceimpl.proxy.EdgeServiceProxy" />
+	
+	<!-- 服务的实现 -->
+	<bean id="loginEdgeServiceTarget" class="org.learn.edge.login.service.LoginEdgeServiceImpl" >
+	</bean>
+	
+	<!-- 服务的代理 -->
+	<bean id="loginEdgeService" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interceptorNames">
+			<list>
+				<value>edgeServiceInterceptor</value>
+			</list>
+		</property>
+		<property name="target" ref="loginEdgeServiceTarget" />
+	</bean>
+</beans>
